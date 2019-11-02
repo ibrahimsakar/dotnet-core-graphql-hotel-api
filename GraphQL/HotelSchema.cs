@@ -7,7 +7,7 @@ namespace dotnet_core_graphql_hotel_api.GraphQL
     {
         public HotelSchema(IDependencyResolver resolver) : base(resolver)
         {
-            Query = resolver.Resolve<HotelQuery>()
+            Query = resolver.Resolve<HotelQuery>();
         }
     }
 }
