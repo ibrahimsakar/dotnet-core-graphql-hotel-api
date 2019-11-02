@@ -6,11 +6,11 @@ namespace dotnet_core_graphql_hotel_api.GraphQL
 {
     public class HotelQuery : ObjectGraphType<object>
     {
-        public HotelQuery(HotelContext _hotelContext)
+        public HotelQuery(HotelContext hotelContext)
         {
             Name = "Hotel Query";
 
-            Field<ListGraphType<HotelType>>("Hotels", resolve: ctx => _hotelContext.GetHotels());
+            Field<ListGraphType<HotelType>>("Hotels", resolve: ctx => hotelContext.GetHotels());
             Field<ListGraphType<HotelType>>("HotelsByHotelId",
                 arguments: new QueryArguments()
                 {
@@ -20,7 +20,7 @@ namespace dotnet_core_graphql_hotel_api.GraphQL
                         Description = "Hotel Id"
                     }
                 },
-                resolve: ctx => _hotelContext.GetHotelsById(ctx.GetArgument<int>("Id")));
+                resolve: ctx => hotelContext.GetHotelsById(ctx.GetArgument<int>("Id")));
         }
     }
 }

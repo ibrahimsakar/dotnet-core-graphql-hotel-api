@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_core_graphql_hotel_api.Data;
+using dotnet_core_graphql_hotel_api.GraphQL;
+using dotnet_core_graphql_hotel_api.GraphQL.Types;
+using GraphQL;
+using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +30,12 @@ namespace dotnet_core_graphql_hotel_api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<HotelContext>();
+            services.AddSingleton<IDependencyResolver>(_ => new FuncDependencyResolver(_.GetRequiredService));
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+            services.AddSingleton<HotelType>();
+            services.AddSingleton<HotelQuery>();
+            services.AddSingleton<ISchema, HotelSchema>();
             services.AddControllers();
         }
 
